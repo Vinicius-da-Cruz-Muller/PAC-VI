@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'animacao.dart';
+import 'package:myapp/pages/animacao-abertura.dart';
+import 'package:myapp/pages/animacao-logo.dart';
+import 'package:myapp/pages/home.dart';
+import 'package:myapp/pages/home2.dart';
+import 'package:myapp/pages/minhas-plantas.dart';
+import 'package:myapp/pages/nome.dart';
+import 'package:myapp/pages/previsao.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'GARDUINO',
-      home: SplashScreenWidget(),
+      title: 'Garduino',
+      home: AnimacaoLogo(),
     );
   }
 }
