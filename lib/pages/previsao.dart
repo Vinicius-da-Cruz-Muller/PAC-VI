@@ -1,18 +1,119 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:myapp/pages/home.dart';
+import 'package:myapp/pages/minhas-plantas.dart';
 import 'package:myapp/utils.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-class Previsao extends StatelessWidget {
+class Previsao extends StatefulWidget {
   const Previsao({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
+  _PrevisaoState createState() => _PrevisaoState();
+}
+
+class _PrevisaoState extends State<Previsao> {
+  late PageController _pageController;
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      _pageController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+
+      switch (index) {
+        case 0:
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const Previsao()),
+          );
+          break;
+        case 1:
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const Home()),
+          );
+          break;
+        case 2:
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const Plantas()),
+          );
+          break;
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double baseWidth = 430;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
-    return SizedBox(
-      width: double.infinity,
+    return Scaffold(
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        children: [
+          _buildPage(context, "Página Previsões"),
+          _buildPage(context, "Página Home"),
+          _buildPage(context, "Página Minhas Plantas"),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
+        backgroundColor: const Color(0xff336459),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        iconSize: 40.0,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.filter_drama_outlined),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.filter_vintage_outlined),
+            label: '',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget _buildPage(BuildContext context, String title) {
+  double baseWidth = 430;
+  double fem = MediaQuery.of(context).size.width / baseWidth;
+  double ffem = fem * 0.97;
+
+  initializeDateFormatting('pt_BR', null);
+  DateTime dataAtual = DateTime.now();
+
+  return Scaffold(
+    body: SingleChildScrollView(
       child: Container(
-        // previsop7c (23:10)
         width: double.infinity,
         decoration: const BoxDecoration(
           color: Color(0xffffffff),
@@ -21,7 +122,6 @@ class Previsao extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              // autogroupxvsychg (98E1TDotyMLhVBi8ryxVsY)
               padding:
                   EdgeInsets.fromLTRB(31 * fem, 46 * fem, 30 * fem, 62 * fem),
               width: double.infinity,
@@ -29,7 +129,6 @@ class Previsao extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    // autogroupnmhlG1Y (98E12EXXqgmuVL8FukNmHL)
                     margin: EdgeInsets.fromLTRB(
                         9 * fem, 0 * fem, 0 * fem, 39 * fem),
                     width: 226 * fem,
@@ -37,7 +136,6 @@ class Previsao extends StatelessWidget {
                     child: Stack(
                       children: [
                         Positioned(
-                          // previsoMog (23:11)
                           left: 0 * fem,
                           top: 0 * fem,
                           child: Align(
@@ -58,7 +156,6 @@ class Previsao extends StatelessWidget {
                           ),
                         ),
                         Positioned(
-                          // deoutubroiAN (23:13)
                           left: 0 * fem,
                           top: 36 * fem,
                           child: Align(
@@ -66,7 +163,7 @@ class Previsao extends StatelessWidget {
                               width: 226 * fem,
                               height: 39 * fem,
                               child: Text(
-                                '26 de Outubro',
+                                _formatarData(dataAtual),
                                 style: SafeGoogleFont(
                                   'Inter',
                                   fontSize: 32 * ffem,
@@ -82,7 +179,6 @@ class Previsao extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    // temperaturaBZk (23:28)
                     margin: EdgeInsets.fromLTRB(
                         12 * fem, 0 * fem, 0 * fem, 19 * fem),
                     child: Text(
@@ -96,157 +192,119 @@ class Previsao extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    // rectangle3GLJ (23:14)
-                    margin: EdgeInsets.fromLTRB(
-                        3 * fem, 0 * fem, 4 * fem, 24 * fem),
-                    width: double.infinity,
-                    height: 98 * fem,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30 * fem),
-                      color: const Color(0x3fd9d9d9),
-                    ),
-                  ),
-                  Container(
-                    // chuvazGJ (34:17)
-                    margin: EdgeInsets.fromLTRB(
-                        9 * fem, 0 * fem, 0 * fem, 19 * fem),
-                    child: Text(
-                      'Chuva',
-                      style: SafeGoogleFont(
-                        'Inter',
-                        fontSize: 16 * ffem,
-                        fontWeight: FontWeight.w400,
-                        height: 1.2125 * ffem / fem,
-                        color: const Color(0xff4e4e4e),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(
+                          3 * fem, 0 * fem, 4 * fem, 24 * fem),
+                      width: double.infinity,
+                      height: 98 * fem,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30 * fem),
+                        color: const Color(0x3fd9d9d9),
                       ),
                     ),
                   ),
-                  Container(
-                    // rectangle24hRc (34:16)
-                    margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 0 * fem, 24 * fem),
-                    width: 362 * fem,
-                    height: 98 * fem,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30 * fem),
-                      color: const Color(0x3fd9d9d9),
-                    ),
-                  ),
-                  Container(
-                    // humidadeC7U (34:19)
-                    margin: EdgeInsets.fromLTRB(
-                        12 * fem, 0 * fem, 0 * fem, 19 * fem),
-                    child: Text(
-                      'Humidade',
-                      style: SafeGoogleFont(
-                        'Inter',
-                        fontSize: 16 * ffem,
-                        fontWeight: FontWeight.w400,
-                        height: 1.2125 * ffem / fem,
-                        color: const Color(0xff4e4e4e),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    // rectangle25hpv (34:18)
-                    margin: EdgeInsets.fromLTRB(
-                        3 * fem, 0 * fem, 4 * fem, 24 * fem),
-                    width: double.infinity,
-                    height: 98 * fem,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30 * fem),
-                      color: const Color(0x3fd9d9d9),
-                    ),
-                  ),
-                  Container(
-                    // luminosidadeSXc (34:21)
-                    margin: EdgeInsets.fromLTRB(
-                        16 * fem, 0 * fem, 0 * fem, 19 * fem),
-                    child: Text(
-                      'Luminosidade',
-                      style: SafeGoogleFont(
-                        'Inter',
-                        fontSize: 16 * ffem,
-                        fontWeight: FontWeight.w400,
-                        height: 1.2125 * ffem / fem,
-                        color: const Color(0xff4e4e4e),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    // rectangle266cA (34:20)
-                    margin:
-                        EdgeInsets.fromLTRB(7 * fem, 0 * fem, 0 * fem, 0 * fem),
-                    width: 362 * fem,
-                    height: 98 * fem,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30 * fem),
-                      color: const Color(0x3fd9d9d9),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              // autogroupb4xl1UE (98E1Btv6kv96KDn6zsB4XL)
-              padding:
-                  EdgeInsets.fromLTRB(42 * fem, 7 * fem, 51 * fem, 8 * fem),
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Color(0xff336459),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    // designsemnome7vbC (34:10)
-                    margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 45 * fem, 0.83 * fem),
-                    width: 85 * fem,
-                    height: 70.17 * fem,
-                    child: Image.asset(
-                      'assets/page-1/images/design-sem-nome-7.png',
-                    ),
-                  ),
-                  Container(
-                    // designsemnome9dkW (34:12)
-                    margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 51.77 * fem, 4 * fem),
-                    child: TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: SizedBox(
-                        width: 80.23 * fem,
-                        height: 65 * fem,
-                        child: Image.asset(
-                          'assets/page-1/images/design-sem-nome-9.png',
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(
+                          9 * fem, 0 * fem, 0 * fem, 19 * fem),
+                      child: Text(
+                        'Chuva',
+                        style: SafeGoogleFont(
+                          'Inter',
+                          fontSize: 16 * ffem,
+                          fontWeight: FontWeight.w400,
+                          height: 1.2125 * ffem / fem,
+                          color: const Color(0xff4e4e4e),
                         ),
                       ),
                     ),
                   ),
-                  TextButton(
-                    // designsemnome8hEa (34:11)
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                    ),
-                    child: SizedBox(
-                      width: 75 * fem,
-                      height: 75 * fem,
-                      child: Image.asset(
-                        'assets/page-1/images/design-sem-nome-8.png',
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(
+                          0 * fem, 0 * fem, 0 * fem, 24 * fem),
+                      width: 362 * fem,
+                      height: 98 * fem,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30 * fem),
+                        color: const Color(0x3fd9d9d9),
                       ),
                     ),
                   ),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(
+                          12 * fem, 0 * fem, 0 * fem, 19 * fem),
+                      child: Text(
+                        'Humidade',
+                        style: SafeGoogleFont(
+                          'Inter',
+                          fontSize: 16 * ffem,
+                          fontWeight: FontWeight.w400,
+                          height: 1.2125 * ffem / fem,
+                          color: const Color(0xff4e4e4e),
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(
+                          3 * fem, 0 * fem, 4 * fem, 24 * fem),
+                      width: double.infinity,
+                      height: 98 * fem,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30 * fem),
+                        color: const Color(0x3fd9d9d9),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(
+                          16 * fem, 0 * fem, 0 * fem, 19 * fem),
+                      child: Text(
+                        'Luminosidade',
+                        style: SafeGoogleFont(
+                          'Inter',
+                          fontSize: 16 * ffem,
+                          fontWeight: FontWeight.w400,
+                          height: 1.2125 * ffem / fem,
+                          color: const Color(0xff4e4e4e),
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (() {}),
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(
+                          7 * fem, 0 * fem, 0 * fem, 0 * fem),
+                      width: 362 * fem,
+                      height: 98 * fem,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30 * fem),
+                        color: const Color(0x3fd9d9d9),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
+String _formatarData(DateTime data) {
+  return DateFormat('d MMMM', 'pt_BR').format(data);
 }
