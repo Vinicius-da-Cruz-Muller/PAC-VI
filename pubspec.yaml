@@ -66,17 +66,14 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/page-1/images/rectangle-28.png
-    - assets/page-1/images/logo.png
     - assets/page-1/images/abertura.png
     - assets/page-1/images/camera.png
+    - assets/page-1/images/logo.png
+    - assets/page-1/images/planta1.png
+    - assets/page-1/images/planta2.png
+    - assets/page-1/images/planta3.png
+    - assets/page-1/images/planta4.png
     - assets/page-1/images/regador.png
-    - assets/page-1/images/.png
-    - assets/page-1/images/suculentas.png
-    - assets/page-1/images/-esc.png
-    - assets/page-1/images/-mii.png
-    - assets/page-1/images/-GYr.png
-    - assets/page-1/images/orquideas.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

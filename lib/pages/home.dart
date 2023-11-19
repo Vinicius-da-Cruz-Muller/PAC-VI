@@ -1,16 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/pages/minhas-plantas.dart';
+import 'package:myapp/pages/previsao.dart';
 import 'package:myapp/utils.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  late PageController _pageController;
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      _pageController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+
+      switch (index) {
+        case 0:
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const Previsao()),
+          );
+          break;
+        case 1:
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const Home()),
+          );
+          break;
+        case 2:
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const Plantas()),
+          );
+          break;
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double baseWidth = 430;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
-    return SizedBox(
-      width: double.infinity,
+    return Scaffold(
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        children: [
+          _buildPage(context, "Página Previsões"),
+          _buildPage(context, "Página Home"),
+          _buildPage(context, "Página Minhas Plantas"),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
+        backgroundColor: const Color(0xff336459),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        iconSize: 40.0,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.filter_drama_outlined),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.filter_vintage_outlined),
+            label: '',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Widget _buildPage(BuildContext context, String title) {
+  double baseWidth = 430;
+  double fem = MediaQuery.of(context).size.width / baseWidth;
+  double ffem = fem * 0.97;
+
+  return Scaffold(
+    body: SingleChildScrollView(
       child: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -428,7 +525,7 @@ class Home extends StatelessWidget {
                                 width: 136 * fem,
                                 height: 136 * fem,
                                 child: Image.asset(
-                                  'assets/page-1/images/-esc.png',
+                                  'assets/page-1/images/planta1.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -466,7 +563,7 @@ class Home extends StatelessWidget {
                                       width: 130 * fem,
                                       height: 158 * fem,
                                       child: Image.asset(
-                                        'assets/page-1/images/.png',
+                                        'assets/page-1/images/planta2.png',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -520,7 +617,7 @@ class Home extends StatelessWidget {
                                       width: 112 * fem,
                                       height: 158 * fem,
                                       child: Image.asset(
-                                        'assets/page-1/images/-GYr.png',
+                                        'assets/page-1/images/planta3.png',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -544,7 +641,7 @@ class Home extends StatelessWidget {
                                 width: 124 * fem,
                                 height: 112 * fem,
                                 child: Image.asset(
-                                  'assets/page-1/images/-6WN.png',
+                                  'assets/page-1/images/planta4.png',
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -557,89 +654,9 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              width: double.infinity,
-              height: 244 * fem,
-              child: Stack(
-                children: [
-                  Positioned(
-                    left: 0 * fem,
-                    top: 154 * fem,
-                    child: Align(
-                      child: SizedBox(
-                        width: 430 * fem,
-                        height: 50 * fem,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Color(0xff336459),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 42 * fem,
-                    top: 163 * fem,
-                    child: Align(
-                      child: SizedBox(
-                        width: 85 * fem,
-                        height: 70.17 * fem,
-                        child: TextButton(
-                          onPressed: () {},
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                          ),
-                          child: Icon(
-                            Icons.home,
-                            size: 40 * fem,
-                            color: const Color.fromARGB(255, 255, 255, 255),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 304 * fem,
-                    top: 161 * fem,
-                    child: Align(
-                      child: SizedBox(
-                        width: 75 * fem,
-                        height: 75 * fem,
-                        child: TextButton(
-                          onPressed: () {},
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                          ),
-                          child: Icon(
-                            Icons.home,
-                            size: 40 * fem,
-                            color: const Color.fromARGB(255, 255, 255, 255),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 172 * fem,
-                    top: 164 * fem,
-                    child: Align(
-                      child: SizedBox(
-                        width: 80.23 * fem,
-                        height: 65 * fem,
-                        child: Icon(
-                          Icons.home,
-                          size: 40 * fem,
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
 }

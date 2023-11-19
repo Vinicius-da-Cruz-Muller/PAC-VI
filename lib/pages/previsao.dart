@@ -60,6 +60,8 @@ class _PrevisaoState extends State<Previsao> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: PageView(
         controller: _pageController,
@@ -99,6 +101,24 @@ class _PrevisaoState extends State<Previsao> {
           ),
         ],
       ),
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(bottom: screenHeight * 0.05, right: 16),
+        child: FloatingActionButton.extended(
+          onPressed: () {},
+          foregroundColor: Colors.white,
+          backgroundColor: const Color.fromARGB(255, 116, 169, 219),
+          label: const Text('Regar'),
+          icon: SizedBox(
+            width: 50,
+            height: 40,
+            child: Image.asset(
+              'assets/page-1/images/regador.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
@@ -205,20 +225,17 @@ Widget _buildPage(BuildContext context, String title) {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(
-                          9 * fem, 0 * fem, 0 * fem, 19 * fem),
-                      child: Text(
-                        'Chuva',
-                        style: SafeGoogleFont(
-                          'Inter',
-                          fontSize: 16 * ffem,
-                          fontWeight: FontWeight.w400,
-                          height: 1.2125 * ffem / fem,
-                          color: const Color(0xff4e4e4e),
-                        ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(
+                        9 * fem, 0 * fem, 0 * fem, 19 * fem),
+                    child: Text(
+                      'Chuva',
+                      style: SafeGoogleFont(
+                        'Inter',
+                        fontSize: 16 * ffem,
+                        fontWeight: FontWeight.w400,
+                        height: 1.2125 * ffem / fem,
+                        color: const Color(0xff4e4e4e),
                       ),
                     ),
                   ),
@@ -235,20 +252,17 @@ Widget _buildPage(BuildContext context, String title) {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(
-                          12 * fem, 0 * fem, 0 * fem, 19 * fem),
-                      child: Text(
-                        'Humidade',
-                        style: SafeGoogleFont(
-                          'Inter',
-                          fontSize: 16 * ffem,
-                          fontWeight: FontWeight.w400,
-                          height: 1.2125 * ffem / fem,
-                          color: const Color(0xff4e4e4e),
-                        ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(
+                        12 * fem, 0 * fem, 0 * fem, 19 * fem),
+                    child: Text(
+                      'Humidade',
+                      style: SafeGoogleFont(
+                        'Inter',
+                        fontSize: 16 * ffem,
+                        fontWeight: FontWeight.w400,
+                        height: 1.2125 * ffem / fem,
+                        color: const Color(0xff4e4e4e),
                       ),
                     ),
                   ),
@@ -265,20 +279,17 @@ Widget _buildPage(BuildContext context, String title) {
                       ),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(
-                          16 * fem, 0 * fem, 0 * fem, 19 * fem),
-                      child: Text(
-                        'Luminosidade',
-                        style: SafeGoogleFont(
-                          'Inter',
-                          fontSize: 16 * ffem,
-                          fontWeight: FontWeight.w400,
-                          height: 1.2125 * ffem / fem,
-                          color: const Color(0xff4e4e4e),
-                        ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(
+                        16 * fem, 0 * fem, 0 * fem, 19 * fem),
+                    child: Text(
+                      'Luminosidade',
+                      style: SafeGoogleFont(
+                        'Inter',
+                        fontSize: 16 * ffem,
+                        fontWeight: FontWeight.w400,
+                        height: 1.2125 * ffem / fem,
+                        color: const Color(0xff4e4e4e),
                       ),
                     ),
                   ),
@@ -294,7 +305,21 @@ Widget _buildPage(BuildContext context, String title) {
                         color: const Color(0x3fd9d9d9),
                       ),
                     ),
-                  )
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(
+                        12 * fem, 0 * fem, 0 * fem, 19 * fem),
+                    child: Text(
+                      '',
+                      style: SafeGoogleFont(
+                        'Inter',
+                        fontSize: 16 * ffem,
+                        fontWeight: FontWeight.w400,
+                        height: 1.2125 * ffem / fem,
+                        color: const Color(0xff4e4e4e),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
