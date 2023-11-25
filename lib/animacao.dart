@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 
-import 'package:garduino/account/login.dart';
+import 'package:myapp/account/login.dart';
 
 class SplashScreenWidget extends StatelessWidget {
   const SplashScreenWidget({super.key});

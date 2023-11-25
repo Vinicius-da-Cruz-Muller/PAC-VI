@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 30,),
             const Text('Não possui cadastro?'),
             ElevatedButton(
-              style: ElevatedButton.styleFrom,
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
               onPressed: _login,
               child: const Text('Cadastrar'),
             ),
