@@ -4,6 +4,8 @@ import 'package:myapp/pages/home.dart';
 import 'package:myapp/pages/minhas-plantas.dart';
 import 'package:myapp/utils.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Previsao extends StatefulWidget {
   const Previsao({super.key});
@@ -22,8 +24,6 @@ class _PrevisaoState extends State<Previsao> {
     super.initState();
     _pageController = PageController();
   }
-
-
 
   @override
   void dispose() {
@@ -106,7 +106,10 @@ class _PrevisaoState extends State<Previsao> {
       floatingActionButton: Container(
         margin: EdgeInsets.only(bottom: screenHeight * 0.05, right: 16),
         child: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () async {
+            final response = await http.post(Uri.parse("http://192.168.0.116/Rele"));
+            //final responsecall = await http.get(Uri.parse('http://127.0.0.1:5000/desliga'));
+          },
           foregroundColor: Colors.white,
           backgroundColor: const Color.fromARGB(255, 116, 169, 219),
           label: const Text('Regar'),
@@ -140,7 +143,7 @@ Widget _buildPage(BuildContext context, String title) {
         decoration: const BoxDecoration(
           color: Color(0xffffffff),
         ),
-        child: Column( 
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
