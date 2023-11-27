@@ -23,6 +23,8 @@ class _PrevisaoState extends State<Previsao> {
     _pageController = PageController();
   }
 
+
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -138,7 +140,7 @@ Widget _buildPage(BuildContext context, String title) {
         decoration: const BoxDecoration(
           color: Color(0xffffffff),
         ),
-        child: Column(
+        child: Column( 
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
@@ -202,7 +204,7 @@ Widget _buildPage(BuildContext context, String title) {
                     margin: EdgeInsets.fromLTRB(
                         12 * fem, 0 * fem, 0 * fem, 19 * fem),
                     child: Text(
-                      'Temperatura',
+                      'Resumo',
                       style: SafeGoogleFont(
                         'Inter',
                         fontSize: 16 * ffem,
@@ -229,7 +231,7 @@ Widget _buildPage(BuildContext context, String title) {
                     margin: EdgeInsets.fromLTRB(
                         9 * fem, 0 * fem, 0 * fem, 19 * fem),
                     child: Text(
-                      'Chuva',
+                      'Mínima',
                       style: SafeGoogleFont(
                         'Inter',
                         fontSize: 16 * ffem,
@@ -250,13 +252,14 @@ Widget _buildPage(BuildContext context, String title) {
                         borderRadius: BorderRadius.circular(30 * fem),
                         color: const Color(0x3fd9d9d9),
                       ),
+                      child: Text("Teste"), //--------------------------------
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(
                         12 * fem, 0 * fem, 0 * fem, 19 * fem),
                     child: Text(
-                      'Humidade',
+                      'Máxima',
                       style: SafeGoogleFont(
                         'Inter',
                         fontSize: 16 * ffem,
@@ -283,7 +286,7 @@ Widget _buildPage(BuildContext context, String title) {
                     margin: EdgeInsets.fromLTRB(
                         16 * fem, 0 * fem, 0 * fem, 19 * fem),
                     child: Text(
-                      'Luminosidade',
+                      'Cidade',
                       style: SafeGoogleFont(
                         'Inter',
                         fontSize: 16 * ffem,
