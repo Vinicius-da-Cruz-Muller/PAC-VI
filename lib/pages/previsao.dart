@@ -107,7 +107,8 @@ class _PrevisaoState extends State<Previsao> {
         margin: EdgeInsets.only(bottom: screenHeight * 0.05, right: 16),
         child: FloatingActionButton.extended(
           onPressed: () async {
-            final response = await http.post(Uri.parse("http://192.168.0.116/Rele"));
+            final response =
+                await http.post(Uri.parse("http://192.168.0.116/Rele"));
             //final responsecall = await http.get(Uri.parse('http://127.0.0.1:5000/desliga'));
           },
           foregroundColor: Colors.white,
@@ -255,7 +256,17 @@ Widget _buildPage(BuildContext context, String title) {
                         borderRadius: BorderRadius.circular(30 * fem),
                         color: const Color(0x3fd9d9d9),
                       ),
-                      child: Text("Teste"), //--------------------------------
+                      child: FutureBuilder<String>(
+                          future: getUmidade(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Text(snapshot.data?? "Erro erro erro");
+                            }else if(snapshot.hasError){
+                                return Text(snapshot.error.toString());
+                              }else{
+                              return CircularProgressIndicator();
+                            }
+                          }), //--------------------------------
                     ),
                   ),
                   Container(
@@ -338,4 +349,13 @@ Widget _buildPage(BuildContext context, String title) {
 
 String _formatarData(DateTime data) {
   return DateFormat('d MMMM', 'pt_BR').format(data);
+}
+
+Future<String> getUmidade() async {
+  final response = await http.get(Uri.parse("http://192.168.0.116/Sensor"));
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    return "Erro: ${response.statusCode}";
+  }
 }
