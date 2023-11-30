@@ -108,7 +108,7 @@ class _PrevisaoState extends State<Previsao> {
         child: FloatingActionButton.extended(
           onPressed: () async {
             final response =
-                await http.post(Uri.parse("http://192.168.0.116/Rele"));
+                await http.post(Uri.parse("http://172.20.10.3/Rele"));
             //final responsecall = await http.get(Uri.parse('http://127.0.0.1:5000/desliga'));
           },
           foregroundColor: Colors.white,
@@ -352,7 +352,7 @@ String _formatarData(DateTime data) {
 }
 
 Future<String> getUmidade() async {
-  final response = await http.get(Uri.parse("http://192.168.0.116/Sensor"));
+  final response = await http.get(Uri.parse("http://172.20.10.3/Sensor"));
   if (response.statusCode == 200) {
     return response.body;
   } else {
